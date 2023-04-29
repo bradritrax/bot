@@ -1,0 +1,18 @@
+
+    {
+        "Dtoken": "YOU_DISCORD_BOT_TOKEN",
+        "prefix": "",
+        "username": "BotName",
+        "password":"false",
+        "ip":"Server_IP",
+        "version": "1.19",
+        "scid": "CHANNEL_ID_FOR_CHAT_BRIDGE",
+        "jc" : "",
+        "messages": [
+    "message1",
+    "message2"
+  ],
+  "prefixs": "&",
+  "blacklist": ["player1", "player2"],
+  "delay": "20"
+      }
