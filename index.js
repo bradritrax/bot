@@ -110,7 +110,7 @@ client.on('message', msg => {
   command = command.slice(prefix.length);
   command = args.shift().toLowerCase();
 
-  if (command == "sudo") {
+  if (command == "say") {
     const chat = args.join(" ")
     bot.chat(chat)
     const success = new D.MessageEmbed()
@@ -163,6 +163,9 @@ client.on('message', msg => {
       .addField(` ${prefix}online `, 'Get the current player list.') 
       .addField(` ${prefix}status `, 'Show information about the bot.')
       .addField(` ${prefix}location `, 'Show the bots current location.')
+      .addField(` ${prefix}spam `, 'Spam Ping The Mention User. ( ${prefix}spam @username 10 )' )
+      .addField(` ${prefix}purge `, 'Delete Messages in Bulk')
+      .addField(` ${prefix}ttt `, 'Play TicTacToe')
       .setColor(0xA020F0)
       .setTimestamp();
     msg.channel.send(help)
