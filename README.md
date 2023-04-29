@@ -68,3 +68,4 @@ Yep
 
 [TomPlantea](https://github.com/TomPlaneta/) for [SpamBot+](https://github.com/TomPlaneta/SpamBotPlus)
 
+#### NOTE - This project is still not finish . I will add more commands
