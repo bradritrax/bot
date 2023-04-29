@@ -4,8 +4,8 @@
 A Minecraft bot created with the help of the mineflayer and discord.js libraries.
 
 
-![Lines](https://img.shields.io/tokei/lines/github/sagxd/SagXDBot?style=for-the-badge)
-![activity](https://img.shields.io/github/commit-activity/m/sagxd/sagxdbot?style=for-the-badge)
+![Lines](https://img.shields.io/tokei/lines/github/sagxd/SagXDBot?style=for-the-badge&color=blueviolet)
+![activity](https://img.shields.io/github/commit-activity/m/sagxd/sagxdbot?style=for-the-badge&color=blueviolet)
 
 
 ## Getting started
