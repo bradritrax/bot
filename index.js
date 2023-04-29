@@ -57,7 +57,7 @@ client.on('ready', async () => {
 bot.once('login', async () => {
     console.log(chalk.blue('=-()-=-=()=--=()=--=()=--=()=--=()=-()-=-=()=--=()=--=()=--=()=--=()'))
     console.log(chalk.magenta(`bot is on At ${ip}`))
-    //bot.chat(jc)
+    bot.chat(jc)
     console.log(chalk.yellow(`Bot just say "${jc}"`))
     console.log(chalk.red('=-()-=-=()=--=()=--=()=--=()=--=()=-()-=-=()=--=()=--=()=--=()=--=()'))
     console.log();
