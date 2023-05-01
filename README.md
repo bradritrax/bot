@@ -3,10 +3,16 @@
 
 A Minecraft bot created with the help of the mineflayer and discord.js libraries.
 
+<p align="center">
+  <a href="https://shields.io"><img src="https://img.shields.io/tokei/lines/github/sagxd/SagXDBot?style=for-the-badge&color=blueviolet" alt="forthebadge"/>
+  </a>
+  <a href="https://shields.io"><img src="https://img.shields.io/github/commit-activity/m/sagxd/sagxdbot?style=for-the-badge&color=blueviolet" alt="forthebadge"/>
+  </a>
+</p>
 
-![Lines](https://img.shields.io/tokei/lines/github/sagxd/SagXDBot?style=for-the-badge&color=blueviolet)
-![activity](https://img.shields.io/github/commit-activity/m/sagxd/sagxdbot?style=for-the-badge&color=blueviolet)
-
+<p align="center">
+  <a href="http://forthebadge.com/"><img src="asset/i-love-javascript.svg" alt="forthebadge"/></a>
+</p>
 
 ## Getting started
 1. Install [node.js](https://nodejs.org/) and npm
