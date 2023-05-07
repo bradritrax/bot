@@ -4,8 +4,8 @@ var client = new D.Client();
 var config = require('./config.json');
 var chalk = require('chalk');
 var jc = config.jc;
-var tpsPlugin = require('mineflayer-tps');
-var ttt = require('discord-tictactoe')
+var tpsPlugin = require('mineflayer-tps')(mineflayer);
+var ttt = require('discord-tictactoe');
 
 let prefix = config.prefix;
 let color = "#RANDOM";
@@ -156,19 +156,40 @@ client.on('message', msg => {
         msg.channel.send(MoRight)
     } else if (command == "help") {
         const help = new D.MessageEmbed()
-            .setTitle(`Help`)
-            .addField(` ${prefix}say `, 'To Get The bot say what you want.')
-            .addField(` ${prefix}movement `, 'Look At Movement command.')
-            .addField(` ${prefix}dupe `, 'Frame Dupe.')
-            .addField(` ${prefix}tps `, 'Get TPS of Server.')
-            .addField(` ${prefix}online `, 'Get the current player list.')
-            .addField(` ${prefix}status `, 'Show information about the bot.')
-            .addField(` ${prefix}location `, 'Show the bots current location.')
-            .addField(` ${prefix}spam `, 'Spam Ping The Mention User. ( ${prefix}spam @username 10 )')
-            .addField(` ${prefix}purge `, 'Delete Messages in Bulk')
-            .addField(` ${prefix}ttt `, 'Play TicTacToe')
-            .setColor(0xA020F0)
-            .setTimestamp();
+            .setTitle('Help')
+            .setDescription('Here are the available commands:')
+            .addFields({
+                name: `:speech_balloon: ${prefix}say`,
+                value: `Get the bot to say what you want.`
+            }, {
+                name: `:arrows_counterclockwise: ${prefix}movement`,
+                value: `Look at the movement command.`
+            }, {
+                name: `:frame_photo: ${prefix}dupe`,
+                value: `Frame dupe. `
+            }, {
+                name: `:signal_strength: ${prefix}tps`,
+                value: `Get TPS of server.`
+            }, {
+                name: `:busts_in_silhouette: ${prefix}online`,
+                value: `Get the current player list.`
+            }, {
+                name: `:information_source: ${prefix}status`,
+                value: `Show information about the bot.`
+            }, {
+                name: `:world_map: ${prefix}location`,
+                value: `Show the bot's current location.`
+            }, {
+                name: `:loudspeaker: ${prefix}spam`,
+                value: `Spam ping the mentioned user. (Usage: ${prefix}spam @username 10)`
+            }, {
+                name: `:wastebasket: ${prefix}purge`,
+                value: `Delete messages in bulk.`
+            }, {
+                name: `:game_die: ${prefix}ttt`,
+                value: `Play TicTacToe.`
+            }, )
+            .setColor('#313338');
         msg.channel.send(help)
     } else if (command == "movement") {
         const movement = new D.MessageEmbed()
@@ -182,7 +203,7 @@ client.on('message', msg => {
             .setTimestamp();
         msg.channel.send(movement)
     } else if (command == "purge") {
-        msg.channel.bulkDelete(500)
+        msg.channel.bulkDelete(100)
     } else if (command == "dupe") {
         const itemframe = bot.nearestEntity(entity => entity.name.match('item_frame'))
         if (itemframe) {
@@ -200,6 +221,8 @@ client.on('message', msg => {
                 .setColor(0xA020F0)
                 .setTimestamp();
             msg.channel.send(dupe)
+        } else {
+            return msg.reply("Bot doesn't have an item frame.");
         }
     } else if (command == "tps") {
         const tps = new D.MessageEmbed()
@@ -258,8 +281,27 @@ client.on('message', msg => {
         for (let i = 0; i < numMessages; i++) {
             msg.channel.send(`Hey ${user}! You're being spammed!`);
         }
+    } else if (command == "sneak") {
+        bot.setControlState('sneak', true);
+        const sneak = new D.MessageEmbed()
+            .setDescription(`Bot is Sneaking`)
+        msg.channel.send(sneak)
+    } else if (command == "stopsneak") {
+        bot.setControlState('sneak', false);
+        const stsneak = new D.MessageEmbed()
+            .setDescription(`Bot Stopped Sneaking`)
+        msg.channel.send(stsneak)
+    } else if (command == "jump") {
+        bot.setControlState('jump', true);
+        const jump = new D.MessageEmbed()
+            .setDescription(`Bot Started Jumping`)
+        msg.channel.send(jump)
+    } else if (command == "stopjump") {
+        bot.setControlState('jump', false);
+        const stjump = new D.MessageEmbed()
+            .setDescription(`Bot Stopped Jumping`)
+        msg.channel.send(stjump)
     }
-
 })
 
 
