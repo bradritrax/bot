@@ -36,7 +36,7 @@ A Minecraft bot created with the help of the mineflayer and discord.js libraries
     "message1",
     "message2"
   ],
-  "prefixs": "&",
+  "prefixs": "&k",
   "blacklist": [
     "player1",
     "player2"
