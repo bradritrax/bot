@@ -8,7 +8,7 @@ A Minecraft bot created with the help of the mineflayer and discord.js libraries
   </a>
   <a href="https://shields.io"><img src="https://img.shields.io/github/commit-activity/m/sagxd/sagxdbot?style=for-the-badge&color=brightgreen&cacheSeconds=3600" alt="forthebadge"/>
   </a>
-  <a href="https://shields.io"><img src="https://img.shields.io/github/stars/sagxd/sagxdbot?style=for-the-badge&color=brightgreen&cacheSeconds=3600" alt="forthebadge"/>
+  <a href="https://shields.io"><img src="https://custom-icon-badges.demolab.com/github/stars/sagxd/sagxdbot?logo=star&style=for-the-badge&color=brightgreen&cacheSeconds=3600" alt="forthebadge"/>
   </a>
 </p>
 
