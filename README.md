@@ -29,7 +29,7 @@ A Minecraft bot created with the help of the mineflayer and discord.js libraries
   "Dtoken": "YOU_DISCORD_BOT_TOKEN",
   "prefix": "PREFIX_FOR_DISCORD_BOT",
   "username": "BotName",
-  "password": "false",
+  "password": false,
   "ip": "Server_IP",
   "version": "1.19",
   "scid": "CHANNEL_ID_FOR_CHAT_BRIDGE",
