@@ -95,7 +95,7 @@ bot.once("login", async () => {
                 const targetUsername = bot.players[player].username;
                 if (config.blacklist.includes(targetUsername.toLowerCase()) || bot.entity.username == targetUsername) continue;
                 if (forceStop) return;
-                bot.chat("/msg " + targetUsername + " " + config.prefixs + getRandomMessage());
+                bot.chat("/msg " + targetUsername + " " + config.colorcodes + getRandomMessage());
                 await bot.waitForTicks(config.delay);
             }
         }
