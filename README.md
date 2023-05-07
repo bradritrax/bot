@@ -50,7 +50,7 @@ A Minecraft bot created with the help of the mineflayer and discord.js libraries
 - spam - Spam Ping The Mention User
 - dupe - Perform Frame Dupe
 - say -  Use Discord to Chat in Minecraft Server
-- movement - Bunch of Movement Commands
+- movement - To See all Movement Commands.
 - online - Get List of Online Player.
 - tps - Get current TPS(TickPerSecond) of Server.
 - help - Get List of All Available Commands.
