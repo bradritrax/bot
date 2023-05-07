@@ -86,22 +86,6 @@ new ttt({
 }).attach(client)
 
 
-bot.once("login", async () => {
-    await bot.waitForTicks(1000);
-    while (!forceStop) {
-        if (!isInLobby()) {
-            for (player in bot.players) {
-                const targetUsername = bot.players[player].username;
-                if (config.blacklist.includes(targetUsername.toLowerCase()) || bot.entity.username == targetUsername) continue;
-                if (forceStop) return;
-                bot.chat("/msg " + targetUsername + " " + config.colorcodes + getRandomMessage());
-                await bot.waitForTicks(config.delay);
-            }
-        }
-        await bot.waitForTicks(2);
-    }
-});
-
 client.on('message', msg => {
     if (!msg.content.startsWith(prefix)) return
     let args = msg.content.split(" ").slice(1)
@@ -110,8 +94,7 @@ client.on('message', msg => {
     command = command.slice(prefix.length);
     command = args.shift().toLowerCase();
 
-    switch (command) {
-    case "say":
+    if (command == "say") {
         const chat = args.join(" ")
         bot.chat(chat)
         const success = new D.MessageEmbed()
@@ -119,42 +102,42 @@ client.on('message', msg => {
             .setColor(0xA020F0)
             .setTimestamp();
         msg.channel.send(success);
-    case "forward":
+    } else if (command == "forward") {
         bot.setControlState('forward', true)
         const MoForw = new D.MessageEmbed()
             .setDescription(`:white_check_mark: Im Moving forward To Stop Do -stop`)
             .setColor(0xA020F0)
             .setTimestamp();
         msg.channel.send(MoForw);
-    case "backward":
+    } else if (command == "backward") {
         bot.setControlState('back', true)
         const MoBackw = new D.MessageEmbed()
             .setDescription(`:white_check_mark: Im Moving backward To Stop Do -stop`)
             .setColor(0xA020F0)
             .setTimestamp();
         msg.channel.send(MoBackw);
-    case "stop":
+    } else if (command == "stop") {
         bot.clearControlStates()
         const MoStop = new D.MessageEmbed()
             .setDescription(`:white_check_mark: Stopped!`)
             .setColor(color)
             .setTimestamp();
         msg.channel.send(MoStop);
-        case "left":
+    } else if (command == "left") {
         bot.setControlState('left', true)
         const MoLeft = new D.MessageEmbed()
             .setDescription(`:white_check_mark: Im Moving left To Stop Do -stop`)
             .setColor(0xA020F0)
             .setTimestamp();
         msg.channel.send(MoLeft);
-        case "right":
+    } else if (command == "right") {
         bot.setControlState('right', true)
         const MoRight = new D.MessageEmbed()
             .setDescription(`:white_check_mark: Im Moving Right To Stop Do -stop`)
             .setColor(0xA020F0)
             .setTimestamp();
         msg.channel.send(MoRight);
-        case "help":
+    } else if (command == "help") {
         const help = new D.MessageEmbed()
             .setTitle('Help')
             .setDescription('Here are the available commands:')
@@ -191,7 +174,7 @@ client.on('message', msg => {
             }, )
             .setColor('#313338');
         msg.channel.send(help);
-        case "movement":
+    } else if (command == "movement") {
         const movement = new D.MessageEmbed()
             .setTitle(`Movement Command`)
             .addField(` ${prefix}forward `, 'To Move Forward')
@@ -202,13 +185,13 @@ client.on('message', msg => {
             .setColor(0xA020F0)
             .setTimestamp();
         msg.channel.send(movement);
-        case "purge":
+    } else if (command == "purge") {
         msg.channel.bulkDelete(100);
-        case "dupe":
-        const itemframe = bot.nearestEntity(entity => entity.name.match('item_frame'));
+    } else if (command == "dupe") {
+        const itemframe = bot.nearestEntity(entity => entity.name.match('item_frame'))
         if (itemframe) {
             setInterval(async () => {
-                const shulk = bot.inventory.items().find(item => item.name.includes('shulker_box'));
+                const shulk = bot.inventory.items().find(item => item.name.includes('shulker_box'))
                 if (shulk) {
                     bot.equip(shulk, 'hand')
                     bot.lookAt(itemframe.position);
@@ -224,14 +207,15 @@ client.on('message', msg => {
         } else {
             return msg.reply("Bot doesn't have an item frame.");
         }
-        case "tps":
+    } else if (command == "tps") {
         const tps = new D.MessageEmbed()
             .setTitle('Current TPS ===> ' + bot.getTps())
             .setColor(0xA020F0)
             .setTimestamp();
         msg.channel.send(tps);
-        case "online":
+    } else if (command == "online") {
         let players = Object.keys(bot.players);
+        let list = players.map((e) => e.username);
         const playerList = players.join(", ");
 
         const online = new D.MessageEmbed()
@@ -245,7 +229,7 @@ client.on('message', msg => {
         } else {
             return msg.channel.send("There are no players online right now.");
         }
-        case command == "status":
+    } else if (command == "status") {
         const status = new D.MessageEmbed()
             .setColor(0xf58367)
             .setTitle(`**${bot.username}** Statistics`)
@@ -254,7 +238,7 @@ client.on('message', msg => {
             .setTimestamp();
 
         msg.channel.send(status);
-        case "location":
+    } else if (command == "location") {
         const X = bot.entity.position.x.toFixed(1);
         const Y = bot.entity.position.y.toFixed(1);
         const Z = bot.entity.position.z.toFixed(1);
@@ -265,7 +249,7 @@ client.on('message', msg => {
             .setDescription(`X: **${X}**\nY: **${Y}**\nZ: **${Z}**`)
             .setTimestamp();
         msg.channel.send(coord);
-        case "spam":
+    } else if (command == "spam") {
         const numMessages = parseInt(args[1]);
         const user = msg.mentions.users.first();
 
@@ -280,22 +264,22 @@ client.on('message', msg => {
         for (let i = 0; i < numMessages; i++) {
             msg.channel.send(`Hey ${user}! You're being spammed!`);
         }
-        case "sneak":
+    } else if (command == "sneak") {
         bot.setControlState('sneak', true);
         const sneak = new D.MessageEmbed()
             .setDescription(`Bot is Sneaking`)
         msg.channel.send(sneak);
-        case "stopsneak":
+    } else if (command == "stopsneak") {
         bot.setControlState('sneak', false);
         const stsneak = new D.MessageEmbed()
             .setDescription(`Bot Stopped Sneaking`)
         msg.channel.send(stsneak);
-        case "jump":
+    } else if (command == "jump") {
         bot.setControlState('jump', true);
         const jump = new D.MessageEmbed()
             .setDescription(`Bot Started Jumping`)
         msg.channel.send(jump);
-        case "stopjump":
+    } else if (command == "stopjump") {
         bot.setControlState('jump', false);
         const stjump = new D.MessageEmbed()
             .setDescription(`Bot Stopped Jumping`)
