@@ -43,7 +43,7 @@ A Minecraft bot created with the help of the mineflayer and discord.js libraries
     "player1",
     "player2"
   ],
-  "delay": "20"
+  "delay": 20
 }
 ```
 ## Commands
