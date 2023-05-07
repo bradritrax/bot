@@ -23,7 +23,7 @@ if (!pass) {
         hideErrors: false,
         username: username,
         version: ver
-    })
+    });
 } else {
     bot = mineflayer.createBot({
         host: ip,
@@ -31,10 +31,10 @@ if (!pass) {
         hideErrors: false,
         password: pass,
         version: ver
-    })
+    });
 }
 
-bot.loadPlugin(tpsPlugin)
+bot.loadPlugin(tpsPlugin);
 
 
 // =========================
