@@ -2,7 +2,7 @@
   "Dtoken": "YOU_DISCORD_BOT_TOKEN",
   "prefix": "PREFIX_FOR_DISCORD_BOT",
   "username": "BotName",
-  "password": "false",
+  "password": false,
   "ip": "Server_IP",
   "version": "1.19",
   "scid": "CHANNEL_ID_FOR_CHAT_BRIDGE",
@@ -16,5 +16,5 @@
     "player1",
     "player2"
   ],
-  "delay": "20"
+  "delay": 20
 }

@@ -1,39 +1,40 @@
 var mineflayer = require('mineflayer');
+var tpsPlugin = require('mineflayer-tps')(mineflayer);
+
 var D = require('discord.js');
+var ttt = require('discord-tictactoe');
+var chalk = require('chalk');
+
 var client = new D.Client();
 var config = require('./config.json');
-var chalk = require('chalk');
-var jc = config.jc;
-var tpsPlugin = require('mineflayer-tps')(mineflayer);
-var ttt = require('discord-tictactoe');
-
-let prefix = config.prefix;
 let color = "#RANDOM";
+
+var jc = config.jc;
+let prefix = config.prefix;
 let ip = config.ip;
 let username = config.username;
-let ver = config.version
-var bot
-if (config.password == "false") {
+let ver = config.version;
+var bot;
+
+let pass = config.password;
+if (!pass) {
     bot = mineflayer.createBot({
         host: ip,
         hideErrors: false,
         username: username,
         version: ver
-    })
+    });
 } else {
-    let pass = config.password;
-
     bot = mineflayer.createBot({
         host: ip,
         username: username,
         hideErrors: false,
         password: pass,
         version: ver
-    })
+    });
 }
 
-
-bot.loadPlugin(tpsPlugin)
+bot.loadPlugin(tpsPlugin);
 
 
 // =========================
@@ -51,16 +52,14 @@ client.on('ready', activity => {
 client.on('ready', async () => {
     console.log(chalk.blue('=-()-=-=()=--=()=--=()=--=()=--=()=-()-=-=()=--=()=--=()=--=()=--=()'))
     console.log(chalk.magenta(`Discord Bot on. Loggined as ${client.user.tag}`))
-    console.log(chalk.red('=-()-=-=()=--=()=--=()=--=()=--=()=-()-=-=()=--=()=--=()=--=()=--=()'))
-    console.log();
+    console.log(chalk.red('=-()-=-=()=--=()=--=()=--=()=--=()=-()-=-=()=--=()=--=()=--=()=--=()\n'))
 })
 bot.once('login', async () => {
     console.log(chalk.blue('=-()-=-=()=--=()=--=()=--=()=--=()=-()-=-=()=--=()=--=()=--=()=--=()'))
     console.log(chalk.magenta(`bot is on At ${ip}`))
     bot.chat(jc)
     console.log(chalk.yellow(`Bot just say "${jc}"`))
-    console.log(chalk.red('=-()-=-=()=--=()=--=()=--=()=--=()=-()-=-=()=--=()=--=()=--=()=--=()'))
-    console.log();
+    console.log(chalk.red('=-()-=-=()=--=()=--=()=--=()=--=()=-()-=-=()=--=()=--=()=--=()=--=()\n'))
 })
 
 let forceStop = false;
@@ -87,22 +86,6 @@ new ttt({
 }).attach(client)
 
 
-bot.once("login", async () => {
-    await bot.waitForTicks(1000);
-    while (!forceStop) {
-        if (!isInLobby()) {
-            for (player in bot.players) {
-                const targetUsername = bot.players[player].username;
-                if (config.blacklist.includes(targetUsername.toLowerCase()) || bot.entity.username == targetUsername) continue;
-                if (forceStop) return;
-                bot.chat("/msg " + targetUsername + " " + config.colorcodes + getRandomMessage());
-                await bot.waitForTicks(config.delay);
-            }
-        }
-        await bot.waitForTicks(2);
-    }
-});
-
 client.on('message', msg => {
     if (!msg.content.startsWith(prefix)) return
     let args = msg.content.split(" ").slice(1)
@@ -118,42 +101,42 @@ client.on('message', msg => {
             .setDescription(`:white_check_mark: ${msg.author.tag} sent \`${chat}\``)
             .setColor(0xA020F0)
             .setTimestamp();
-        msg.channel.send(success)
+        msg.channel.send(success);
     } else if (command == "forward") {
         bot.setControlState('forward', true)
         const MoForw = new D.MessageEmbed()
             .setDescription(`:white_check_mark: Im Moving forward To Stop Do -stop`)
             .setColor(0xA020F0)
             .setTimestamp();
-        msg.channel.send(MoForw)
+        msg.channel.send(MoForw);
     } else if (command == "backward") {
         bot.setControlState('back', true)
         const MoBackw = new D.MessageEmbed()
             .setDescription(`:white_check_mark: Im Moving backward To Stop Do -stop`)
             .setColor(0xA020F0)
             .setTimestamp();
-        msg.channel.send(MoBackw)
+        msg.channel.send(MoBackw);
     } else if (command == "stop") {
         bot.clearControlStates()
         const MoStop = new D.MessageEmbed()
             .setDescription(`:white_check_mark: Stopped!`)
             .setColor(color)
             .setTimestamp();
-        msg.channel.send(MoStop)
+        msg.channel.send(MoStop);
     } else if (command == "left") {
         bot.setControlState('left', true)
         const MoLeft = new D.MessageEmbed()
             .setDescription(`:white_check_mark: Im Moving left To Stop Do -stop`)
             .setColor(0xA020F0)
             .setTimestamp();
-        msg.channel.send(MoLeft)
+        msg.channel.send(MoLeft);
     } else if (command == "right") {
         bot.setControlState('right', true)
         const MoRight = new D.MessageEmbed()
             .setDescription(`:white_check_mark: Im Moving Right To Stop Do -stop`)
             .setColor(0xA020F0)
             .setTimestamp();
-        msg.channel.send(MoRight)
+        msg.channel.send(MoRight);
     } else if (command == "help") {
         const help = new D.MessageEmbed()
             .setTitle('Help')
@@ -190,7 +173,7 @@ client.on('message', msg => {
                 value: `Play TicTacToe.`
             }, )
             .setColor('#313338');
-        msg.channel.send(help)
+        msg.channel.send(help);
     } else if (command == "movement") {
         const movement = new D.MessageEmbed()
             .setTitle(`Movement Command`)
@@ -201,9 +184,9 @@ client.on('message', msg => {
             .addField(` ${prefix}stop `, 'To Stop')
             .setColor(0xA020F0)
             .setTimestamp();
-        msg.channel.send(movement)
+        msg.channel.send(movement);
     } else if (command == "purge") {
-        msg.channel.bulkDelete(100)
+        msg.channel.bulkDelete(100);
     } else if (command == "dupe") {
         const itemframe = bot.nearestEntity(entity => entity.name.match('item_frame'))
         if (itemframe) {
@@ -220,7 +203,7 @@ client.on('message', msg => {
                 .setTitle(`:white_check_mark: Dupe Started`)
                 .setColor(0xA020F0)
                 .setTimestamp();
-            msg.channel.send(dupe)
+            msg.channel.send(dupe);
         } else {
             return msg.reply("Bot doesn't have an item frame.");
         }
@@ -229,7 +212,7 @@ client.on('message', msg => {
             .setTitle('Current TPS ===> ' + bot.getTps())
             .setColor(0xA020F0)
             .setTimestamp();
-        msg.channel.send(tps)
+        msg.channel.send(tps);
     } else if (command == "online") {
         let players = Object.keys(bot.players);
         let list = players.map((e) => e.username);
@@ -254,7 +237,7 @@ client.on('message', msg => {
             .setColor(0xA020F0)
             .setTimestamp();
 
-        msg.channel.send(status)
+        msg.channel.send(status);
     } else if (command == "location") {
         const X = bot.entity.position.x.toFixed(1);
         const Y = bot.entity.position.y.toFixed(1);
@@ -265,7 +248,7 @@ client.on('message', msg => {
             .setTitle(`**${bot.username}** Location`)
             .setDescription(`X: **${X}**\nY: **${Y}**\nZ: **${Z}**`)
             .setTimestamp();
-        msg.channel.send(coord)
+        msg.channel.send(coord);
     } else if (command == "spam") {
         const numMessages = parseInt(args[1]);
         const user = msg.mentions.users.first();
@@ -285,26 +268,24 @@ client.on('message', msg => {
         bot.setControlState('sneak', true);
         const sneak = new D.MessageEmbed()
             .setDescription(`Bot is Sneaking`)
-        msg.channel.send(sneak)
+        msg.channel.send(sneak);
     } else if (command == "stopsneak") {
         bot.setControlState('sneak', false);
         const stsneak = new D.MessageEmbed()
             .setDescription(`Bot Stopped Sneaking`)
-        msg.channel.send(stsneak)
+        msg.channel.send(stsneak);
     } else if (command == "jump") {
         bot.setControlState('jump', true);
         const jump = new D.MessageEmbed()
             .setDescription(`Bot Started Jumping`)
-        msg.channel.send(jump)
+        msg.channel.send(jump);
     } else if (command == "stopjump") {
         bot.setControlState('jump', false);
         const stjump = new D.MessageEmbed()
             .setDescription(`Bot Stopped Jumping`)
-        msg.channel.send(stjump)
+        msg.channel.send(stjump);
     }
 })
-
-
 
 bot.on("messagestr", message => {
     let channel = client.channels.cache.get(config.scid)
@@ -314,12 +295,9 @@ bot.on("messagestr", message => {
     channel.send(msg)
 });
 
-
-
-
 client.login(config.Dtoken)
     .catch(error => {
-        console.log(`Can't Login`);
+        console.log(chalk.red(`Can't Login`));
     })
 
 bot.on('end', () => {
