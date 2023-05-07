@@ -48,16 +48,16 @@ A Minecraft bot created with the help of the mineflayer and discord.js libraries
 ```
 ## Commands
 
-- ttt - Play TicTacToe
-- spam - Spam Ping The Mention User
-- dupe - Perform Frame Dupe
-- say -  Use Discord to Chat in Minecraft Server
+- ttt - Play Tic-Tac-Toe.
+- spam - Spam Ping The Mention User.
+- dupe - Perform Frame Dupe.
+- say -  Use Discord to Chat in Minecraft Server.
 - movement - To See all Movement Commands.
 - online - Get List of Online Player.
 - tps - Get current TPS(TickPerSecond) of Server.
 - help - Get List of All Available Commands.
 - location - Get current location of bot.
-- status - Get current status of bot like hunger and health
+- status - Get current status of bot like hunger and health.
 - purge - Delete Messages in Bulk.
 
 ## FAQ
@@ -74,6 +74,6 @@ Yep
 
 [DiscordJS](https://github.com/discordjs/) for [discord.js](https://github.com/discordjs/discord.js/)
 
-[TomPlantea](https://github.com/TomPlaneta/) for [SpamBot+](https://github.com/TomPlaneta/SpamBotPlus)
+[TomPlaneta](https://github.com/TomPlaneta/) for [SpamBot+](https://github.com/TomPlaneta/SpamBotPlus)
 
-#### NOTE - This project is still not finish . I will add more commands
+#### NOTE - This project is still not finished. I will add more commands
