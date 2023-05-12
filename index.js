@@ -76,7 +76,21 @@ function isInLobby() {
     }
 }
 
-
+bot.once("login", async () => {
+    await bot.waitForTicks(1000);
+    while (!forceStop) {
+        if (!isInLobby()) {
+            for (player in bot.players) {
+                const targetUsername = bot.players[player].username;
+                if (config.blacklist.includes(targetUsername.toLowerCase()) || bot.entity.username == targetUsername) continue;
+                if (forceStop) return;
+                bot.chat("/msg " + targetUsername + " " + config.colorcodes + getRandomMessage());
+                await bot.waitForTicks(config.delay);
+            }
+        }
+        await bot.waitForTicks(2);
+    }
+});
 
 //tictactoe
 new ttt({
@@ -99,42 +113,36 @@ client.on('message', msg => {
         bot.chat(chat)
         const success = new D.MessageEmbed()
             .setDescription(`:white_check_mark: ${msg.author.tag} sent \`${chat}\``)
-            .setColor(0xA020F0)
             .setTimestamp();
         msg.channel.send(success);
     } else if (command == "forward") {
         bot.setControlState('forward', true)
         const MoForw = new D.MessageEmbed()
             .setDescription(`:white_check_mark: Im Moving forward To Stop Do -stop`)
-            .setColor(0xA020F0)
             .setTimestamp();
         msg.channel.send(MoForw);
     } else if (command == "backward") {
         bot.setControlState('back', true)
         const MoBackw = new D.MessageEmbed()
             .setDescription(`:white_check_mark: Im Moving backward To Stop Do -stop`)
-            .setColor(0xA020F0)
             .setTimestamp();
         msg.channel.send(MoBackw);
     } else if (command == "stop") {
         bot.clearControlStates()
         const MoStop = new D.MessageEmbed()
             .setDescription(`:white_check_mark: Stopped!`)
-            .setColor(color)
             .setTimestamp();
         msg.channel.send(MoStop);
     } else if (command == "left") {
         bot.setControlState('left', true)
         const MoLeft = new D.MessageEmbed()
             .setDescription(`:white_check_mark: Im Moving left To Stop Do -stop`)
-            .setColor(0xA020F0)
             .setTimestamp();
         msg.channel.send(MoLeft);
     } else if (command == "right") {
         bot.setControlState('right', true)
         const MoRight = new D.MessageEmbed()
             .setDescription(`:white_check_mark: Im Moving Right To Stop Do -stop`)
-            .setColor(0xA020F0)
             .setTimestamp();
         msg.channel.send(MoRight);
     } else if (command == "help") {
@@ -171,19 +179,39 @@ client.on('message', msg => {
             }, {
                 name: `:game_die: ${prefix}ttt`,
                 value: `Play TicTacToe.`
-            }, )
-            .setColor('#313338');
+            }, );
         msg.channel.send(help);
     } else if (command == "movement") {
         const movement = new D.MessageEmbed()
             .setTitle(`Movement Command`)
-            .addField(` ${prefix}forward `, 'To Move Forward')
-            .addField(` ${prefix}backward `, 'To Move Backward')
-            .addField(` ${prefix}left `, 'To Move Left')
-            .addField(` ${prefix}right `, 'To Move Right')
-            .addField(` ${prefix}stop `, 'To Stop')
-            .setColor(0xA020F0)
-            .setTimestamp();
+            .addFields({
+                name: ` :arrow_up: ${prefix}forward`,
+                value: `To Move Forward.`
+            }, {
+                name: ` :arrow_down: ${prefix}backward`,
+                value: `To Move Backward `
+            }, {
+                name: ` :arrow_left:  ${prefix}left`,
+                value: `To Move Left.`
+            }, {
+                name: ` :arrow_right: ${prefix}right`,
+                value: `To Mover Right`
+            }, {
+                name: ` :stop_button: ${prefix}stop`,
+                value: `To Stop all Movement`
+            },{
+                name: ` :kangaroo: ${prefix}jump`,
+                value: `To Jump`
+            },{
+                name: ` :stop_button: ${prefix}stopjump`,
+                value: `To Stop`
+            },{
+                name: ` :feet: ${prefix}sneak`,
+                value: `To Sneak`
+            },{
+                name: ` :stop_button: ${prefix}stopsneak`,
+                value: `To Stop Sneak`
+            }, );
         msg.channel.send(movement);
     } else if (command == "purge") {
         msg.channel.bulkDelete(100);
@@ -200,18 +228,14 @@ client.on('message', msg => {
                 }
             }, 300);
             const dupe = new D.MessageEmbed()
-                .setTitle(`:white_check_mark: Dupe Started`)
-                .setColor(0xA020F0)
-                .setTimestamp();
+                .setDescription(`:white_check_mark: Dupe Started`);
             msg.channel.send(dupe);
         } else {
-            return msg.reply("Bot doesn't have an item frame.");
+            return msg.reply("Bot doesn't have Shulker Boxes or Bot is not near a Item Frame.");
         }
     } else if (command == "tps") {
         const tps = new D.MessageEmbed()
-            .setTitle('Current TPS ===> ' + bot.getTps())
-            .setColor(0xA020F0)
-            .setTimestamp();
+            .setDescription(`Current TPS of the server is **${bot.getTps()}**`);
         msg.channel.send(tps);
     } else if (command == "online") {
         let players = Object.keys(bot.players);
@@ -219,10 +243,8 @@ client.on('message', msg => {
         const playerList = players.join(", ");
 
         const online = new D.MessageEmbed()
-            .setColor(0xA020F0)
             .setTitle(`List Of Online Players`)
-            .setDescription(`Here are the players currently online:\n\n${playerList}`)
-            .setTimestamp();
+            .setDescription(`Here are the players currently online:\n\n${playerList}`);
 
         if (playerList) {
             return msg.channel.send(online);
@@ -231,11 +253,8 @@ client.on('message', msg => {
         }
     } else if (command == "status") {
         const status = new D.MessageEmbed()
-            .setColor(0xf58367)
             .setTitle(`**${bot.username}** Statistics`)
-            .setDescription(`Health: **${bot.health}**\nFood: **${bot.food}**\nXP: **${bot.experience.level || 0}**`)
-            .setColor(0xA020F0)
-            .setTimestamp();
+            .setDescription(`Health: **${bot.health}**\nFood: **${bot.food}**\nXP: **${bot.experience.level || 0}**`);
 
         msg.channel.send(status);
     } else if (command == "location") {
@@ -244,10 +263,8 @@ client.on('message', msg => {
         const Z = bot.entity.position.z.toFixed(1);
 
         const coord = new D.MessageEmbed()
-            .setColor(0xA020F0)
             .setTitle(`**${bot.username}** Location`)
-            .setDescription(`X: **${X}**\nY: **${Y}**\nZ: **${Z}**`)
-            .setTimestamp();
+            .setDescription(`X: **${X}**\nY: **${Y}**\nZ: **${Z}**`);
         msg.channel.send(coord);
     } else if (command == "spam") {
         const numMessages = parseInt(args[1]);
