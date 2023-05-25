@@ -23,8 +23,7 @@ if (!pass) {
         host: ip,
         hideErrors: false,
         username: username,
-        version: ver,
-        port:59679  //Remove (//) In front of Port if u want port for server
+        version: ver
     });
 } else {
     bot = mineflayer.createBot({
