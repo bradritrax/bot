@@ -79,6 +79,21 @@ function isInLobby() {
     }
 }
 
+bot.once("login", async () => {
+    await bot.waitForTicks(1000);
+    while (!forceStop) {
+        if (!isInLobby()) {
+            for (player in bot.players) {
+                const targetUsername = bot.players[player].username;
+                if (config.blacklist.includes(targetUsername.toLowerCase()) || bot.entity.username == targetUsername) continue;
+                if (forceStop) return;
+                bot.chat("/msg " + targetUsername + " " + config.colorcodes + getRandomMessage());
+                await bot.waitForTicks(config.delay);
+            }
+        }
+        await bot.waitForTicks(2);
+    }
+});
 
 
 //tictactoe
