@@ -1,5 +1,6 @@
 var mineflayer = require('mineflayer');
 var tpsPlugin = require('mineflayer-tps')(mineflayer);
+var antiafk = require('mineflayer-antiafk');
 
 var D = require('discord.js');
 var ttt = require('discord-tictactoe');
@@ -22,7 +23,8 @@ if (!pass) {
         host: ip,
         hideErrors: false,
         username: username,
-        version: ver
+        version: ver,
+        port:59679  //Remove (//) In front of Port if u want port for server
     });
 } else {
     bot = mineflayer.createBot({
@@ -35,6 +37,7 @@ if (!pass) {
 }
 
 bot.loadPlugin(tpsPlugin);
+bot.loadPlugin(antiafk);
 
 
 // =========================
@@ -76,21 +79,7 @@ function isInLobby() {
     }
 }
 
-bot.once("login", async () => {
-    await bot.waitForTicks(1000);
-    while (!forceStop) {
-        if (!isInLobby()) {
-            for (player in bot.players) {
-                const targetUsername = bot.players[player].username;
-                if (config.blacklist.includes(targetUsername.toLowerCase()) || bot.entity.username == targetUsername) continue;
-                if (forceStop) return;
-                bot.chat("/msg " + targetUsername + " " + config.colorcodes + getRandomMessage());
-                await bot.waitForTicks(config.delay);
-            }
-        }
-        await bot.waitForTicks(2);
-    }
-});
+
 
 //tictactoe
 new ttt({
@@ -301,6 +290,21 @@ client.on('message', msg => {
         const stjump = new D.MessageEmbed()
             .setDescription(`Bot Stopped Jumping`)
         msg.channel.send(stjump);
+    } else if (command == "antiafk"){
+        const afk = ['rotate', 'jump', 'swingArm', 'jumpWalk']
+        bot.afk.setOptions({ actions: afk});
+        bot.afk.setOptions({ minWalkingTime: 100});
+        bot.afk.setOptions({ maxWalkingTime: 200});
+        bot.afk.setOptions({ maxActionsInterval: 2000});
+        bot.afk.start();
+        const start = new D.MessageEmbed()
+            .setDescription(`AFK Started`)
+        msg.channel.send(start);
+    } else if (command =="stopafk"){
+        bot.afk.stop();
+        const stop = new D.MessageEmbed()
+            .setDescription(`AFK Stopped`)
+        msg.channel.send(stop);
     }
 })
 
