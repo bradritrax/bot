@@ -59,6 +59,7 @@ A Minecraft bot created with the help of the mineflayer and discord.js libraries
 - location - Get current location of bot.
 - status - Get current status of bot like hunger and health.
 - purge - Delete Messages in Bulk.
+- antiafk - Bypass AFK Kick Plugin
 
 ## FAQ
 
