@@ -15,6 +15,7 @@
     "discord.js": "^12.5.3",
     "fs": "0.0.1-security",
     "mineflayer": "^4.8.1",
+    "mineflayer-antiafk": "github:Etiaro/mineflayer-antiafk",
     "mineflayer-tps": "^1.0.1",
     "ngrok": "^3.4.1",
     "readline-sync": "^1.4.10"
