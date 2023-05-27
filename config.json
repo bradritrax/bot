@@ -1,11 +1,11 @@
 {
-  "Dtoken": "YOU_DISCORD_BOT_TOKEN",
-  "prefix": "PREFIX_FOR_DISCORD_BOT",
-  "username": "BotName",
+  "Dtoken": "MTEwNjY3MTk0OTgyNTk3MDI1Nw.G-QamO.rTNfB9HGFTp8xMLAxbpSl0q5j7QNbEnW3fk-XE",
+  "prefix": "c_",
+  "username": "pro1",
   "password": false,
-  "ip": "Server_IP",
-  "version": "1.19",
-  "scid": "CHANNEL_ID_FOR_CHAT_BRIDGE",
+  "ip": "kaccouw.aternos.me",
+  "version": "1.19.2",
+  "scid": "1075073102570078300",
   "jc": "",
   "messages": [
     "message1",
